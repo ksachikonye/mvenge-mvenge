@@ -1,0 +1,237 @@
+@import (css) url(https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap);
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background-color: black;
+}
+
+canvas {
+  position:fixed;
+  top: 0;
+}
+
+svg {
+  height:100%;
+  width:100%;
+  vector-effect: non-scaling-stroke;
+}
+
+.watermark {
+  position: fixed;
+  font: 18px Play;
+  color: white;
+  z-index: 3;
+  right: 0;
+  bottom: 0;
+  padding: 10px;
+  visibility: hidden;
+}
+.loader {
+  font: 68px Play;
+  font-weight: bold;
+  z-index: 3;
+  color: green;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  div {
+    + div {
+      margin-left: 4px;
+    }
+    height: 10px;
+    width: 10px;
+    background: green;
+    display: inline-block;
+
+    animation: load 1s ease-in alternate-reverse infinite;
+    &:nth-child(2) {
+      animation-delay: 0.33s;
+    }
+    &:nth-child(3) {
+      animation-delay: 0.66s;
+    }
+  }
+}
+
+.circle, .scroller {
+  z-index:3;
+  position: fixed;
+}
+.circle {
+  height:100%;
+  width:100%;
+
+  svg {
+    visibility: hidden;
+  }
+}
+.scroller {
+  display: flex;
+  flex-direction: column;
+  left: 50%;
+  bottom: 4%;
+  transform: translate(-50%, 0);
+  visibility: hidden;
+  svg {
+    width: 8vmin;
+    height: auto;
+
+    polygon {
+      animation: scroll 1s ease-in alternate-reverse infinite;
+    }
+    &:nth-child(2) {
+      transform: translate(0, -1vmin);
+      polygon {
+        animation-delay: 0.33s;
+      }
+    }
+    &:nth-child(3) {
+      transform: translate(0, -2vmin);
+      polygon {
+        animation-delay: 0.66s;
+      }
+    }
+  }
+}
+.section {
+  font-family: 'Play', sans-serif;
+  height: 100vh;
+  width: 100vw;
+  color: white;
+  z-index: 1;
+  position: relative;
+  display: inline-block;
+
+  &__content {
+    padding: 4vmin;
+    position:fixed;
+    color:green;
+    z-index: 2;
+    top:0;
+    height: calc(100vh - 8vmin);
+    width: calc(100vw - 8vmin);
+    display: flex;
+    flex-direction: column;
+
+    svg {
+      visibility: hidden;
+    }
+
+    .title {
+      font-size: 54px;
+      font-weight: bold;
+    }
+
+    .info {
+      height: 0;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+
+      &__row {
+        display: flex;
+        flex-grow: 1;
+        height: 50%;
+
+        > div {
+          flex-grow: 1;
+          width:100%;
+        }
+
+        .coords {
+          font-size: 24px;
+          > div {
+            &:last-child {
+              height: calc(100vh/2 - 4vmin - 114px);
+              width:100%;
+            }
+          }
+        }
+
+        .image-container {
+          border: 2px solid green;
+          visibility: hidden;
+          overflow: hidden;
+          position: relative;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          max-height: 100%;
+
+          .image {
+            width: 100%;
+            display: block;
+          }
+        }
+      }
+    }
+
+    .editing {
+      &:after {
+        content: "_";
+      }
+    }
+
+    .blink {
+      &:after {
+        animation: blink 1s steps(5, start) infinite;
+      }
+    }
+  }
+
+  &.olympus, &.medusae {
+    .info {
+      height: 0;
+      flex-direction: row;
+
+      &__row {
+        flex-direction: column;
+        width: 50%;
+        height: 100%;
+        // display: inline-block;
+
+        .image-container {
+          width: 50%;
+
+          .image {
+            width: 100%;
+          }
+        }
+
+        &:first-child {
+          > div {
+            height: 50%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+@keyframes scroll {
+  0% {
+    fill-opacity: 0;
+  }
+
+  100% {
+    fill-opacity: 1;
+  }
+}
+
+@keyframes load {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

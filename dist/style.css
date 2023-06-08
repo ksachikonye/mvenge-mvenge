@@ -1,0 +1,203 @@
+@import url(https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap);
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background-color: black;
+}
+canvas {
+  position: fixed;
+  top: 0;
+}
+svg {
+  height: 100%;
+  width: 100%;
+  vector-effect: non-scaling-stroke;
+}
+.watermark {
+  position: fixed;
+  font: 18px Play;
+  color: white;
+  z-index: 3;
+  right: 0;
+  bottom: 0;
+  padding: 10px;
+  visibility: hidden;
+}
+.loader {
+  font: 68px Play;
+  font-weight: bold;
+  z-index: 3;
+  color: green;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.loader div {
+  height: 10px;
+  width: 10px;
+  background: green;
+  display: inline-block;
+  animation: load 1s ease-in alternate-reverse infinite;
+}
+.loader div + div {
+  margin-left: 4px;
+}
+.loader div:nth-child(2) {
+  animation-delay: 0.33s;
+}
+.loader div:nth-child(3) {
+  animation-delay: 0.66s;
+}
+.circle,
+.scroller {
+  z-index: 3;
+  position: fixed;
+}
+.circle {
+  height: 100%;
+  width: 100%;
+}
+.circle svg {
+  visibility: hidden;
+}
+.scroller {
+  display: flex;
+  flex-direction: column;
+  left: 50%;
+  bottom: 4%;
+  transform: translate(-50%, 0);
+  visibility: hidden;
+}
+.scroller svg {
+  width: 8vmin;
+  height: auto;
+}
+.scroller svg polygon {
+  animation: scroll 1s ease-in alternate-reverse infinite;
+}
+.scroller svg:nth-child(2) {
+  transform: translate(0, -1vmin);
+}
+.scroller svg:nth-child(2) polygon {
+  animation-delay: 0.33s;
+}
+.scroller svg:nth-child(3) {
+  transform: translate(0, -2vmin);
+}
+.scroller svg:nth-child(3) polygon {
+  animation-delay: 0.66s;
+}
+.section {
+  font-family: 'Play', sans-serif;
+  height: 100vh;
+  width: 100vw;
+  color: white;
+  z-index: 1;
+  position: relative;
+  display: inline-block;
+}
+.section__content {
+  padding: 4vmin;
+  position: fixed;
+  color: green;
+  z-index: 2;
+  top: 0;
+  height: calc(100vh - 8vmin);
+  width: calc(100vw - 8vmin);
+  display: flex;
+  flex-direction: column;
+}
+.section__content svg {
+  visibility: hidden;
+}
+.section__content .title {
+  font-size: 54px;
+  font-weight: bold;
+}
+.section__content .info {
+  height: 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.section__content .info__row {
+  display: flex;
+  flex-grow: 1;
+  height: 50%;
+}
+.section__content .info__row > div {
+  flex-grow: 1;
+  width: 100%;
+}
+.section__content .info__row .coords {
+  font-size: 24px;
+}
+.section__content .info__row .coords > div:last-child {
+  height: calc(100vh/2 - 4vmin - 114px);
+  width: 100%;
+}
+.section__content .info__row .image-container {
+  border: 2px solid green;
+  visibility: hidden;
+  overflow: hidden;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 100%;
+}
+.section__content .info__row .image-container .image {
+  width: 100%;
+  display: block;
+}
+.section__content .editing:after {
+  content: "_";
+}
+.section__content .blink:after {
+  animation: blink 1s steps(5, start) infinite;
+}
+.section.olympus .info,
+.section.medusae .info {
+  height: 0;
+  flex-direction: row;
+}
+.section.olympus .info__row,
+.section.medusae .info__row {
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+}
+.section.olympus .info__row .image-container,
+.section.medusae .info__row .image-container {
+  width: 50%;
+}
+.section.olympus .info__row .image-container .image,
+.section.medusae .info__row .image-container .image {
+  width: 100%;
+}
+.section.olympus .info__row:first-child > div,
+.section.medusae .info__row:first-child > div {
+  height: 50%;
+}
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+@keyframes scroll {
+  0% {
+    fill-opacity: 0;
+  }
+  100% {
+    fill-opacity: 1;
+  }
+}
+@keyframes load {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
